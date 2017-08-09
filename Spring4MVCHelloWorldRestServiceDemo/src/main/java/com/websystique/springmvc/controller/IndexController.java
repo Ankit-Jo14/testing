@@ -11,6 +11,7 @@ public class IndexController {
 
 	@RequestMapping("/new/")
 	public String welcome() {//Welcome page, non-rest
+		System.out.println("inside");
 		return "NewFile";
 	}
 
