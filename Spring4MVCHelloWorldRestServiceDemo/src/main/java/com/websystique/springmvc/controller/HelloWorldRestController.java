@@ -13,7 +13,7 @@ import com.websystique.springmvc.model.CultivarHome;
 public class HelloWorldRestController {
 	@RequestMapping("/")
 	public String welcome() {//Welcome page, non-rest
-		return "resources/index.html";
+		return "home.html";
 	}
 
 	@RequestMapping("/hello/{player}")

@@ -1,16 +1,20 @@
 package com.websystique.springmvc.model;
 // Generated Aug 8, 2017 11:50:21 AM by Hibernate Tools 5.1.0.Alpha1
+import org.hibernate.SessionFactory;
 
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.boot.registry.StandardServiceRegistry;
 import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.LockMode;
-import org.hibernate.SessionFactory;
+
 import org.hibernate.criterion.Example;
+import org.hibernate.service.ServiceRegistry;
 import org.hibernate.boot.Metadata;
 import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+
 /**
  * Home object for domain model class Cultivar.
  * @see websystique.springmvc.model.Cultivar
@@ -25,19 +29,26 @@ public class CultivarHome {
 
  
 	protected SessionFactory getSessionFactory() {
+		SessionFactory sessionFactory = null;;
 		try {
-			SessionFactory sessionFactory = null;
-			StandardServiceRegistry standardRegistry = 
-					new StandardServiceRegistryBuilder().configure("/config/hibernate.cfg.xml").build();
-					Metadata metaData = 
-					new MetadataSources(standardRegistry).getMetadataBuilder().build();
-						sessionFactory = metaData.getSessionFactoryBuilder().build();
-					} catch (Throwable th) {
-
-						System.err.println("Enitial SessionFactory creation failed" + th);
-						throw new ExceptionInInitializerError(th);
-
-					}
+			 Configuration configuration = new Configuration().configure("hibernate.cfg.xml");
+		        ServiceRegistry registry = new StandardServiceRegistryBuilder()
+		                .applySettings(configuration.getProperties())
+		                .build();
+		         sessionFactory = configuration
+		                .addAnnotatedClass(Cultivar.class)
+		                .buildSessionFactory(registry);
+//        	Configuration cfg = new Configuration().configure("hibernate.cfg.xml"); 
+//        	cfg.addAnnotatedClass(com.websystique.springmvc.model.Cultivar.class);
+//        	StandardServiceRegistryBuilder sb = new StandardServiceRegistryBuilder();
+//        	sb.applySettings(cfg.getProperties());
+//        	StandardServiceRegistry standardServiceRegistry = sb.build();           	
+//        	sessionFactory = cfg.buildSessionFactory(standardServiceRegistry);      	
+        } catch (Throwable th) {
+                System.err.println("Enitial SessionFactory creation failed" + th);
+                throw new ExceptionInInitializerError(th);
+        }
+					
 		return sessionFactory;
 	}
 
@@ -100,8 +111,14 @@ public class CultivarHome {
 	public Cultivar findById(int id) {
 		log.debug("getting Cultivar instance with id: " + id);
 		try {
-			Cultivar instance = (Cultivar) sessionFactory.getCurrentSession()
-					.get("websystique.springmvc.model.Cultivar", id);
+			
+			 String sql = "select version()";
+
+			   // String result = (String) sessionFactory.openSession().createQuery(sql);
+			   // System.out.println(result);
+
+			Cultivar instance = (Cultivar) sessionFactory.openSession()
+					.get("com.websystique.springmvc.model.Cultivar", id);
 			if (instance == null) {
 				log.debug("get successful, no instance found");
 			} else {
