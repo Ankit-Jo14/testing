@@ -8,5 +8,6 @@
 </head>
 <body>
 home
+<%response.sendRedirect("resources/index.html"); %>
 </body>
 </html>

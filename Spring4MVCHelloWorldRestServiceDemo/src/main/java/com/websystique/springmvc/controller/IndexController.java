@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
 
-	@RequestMapping("/new/")
+	@RequestMapping("/")
 	public String welcome() {//Welcome page, non-rest
 		System.out.println("inside");
-		return "NewFile";
+		return "home";
 	}
 
 	

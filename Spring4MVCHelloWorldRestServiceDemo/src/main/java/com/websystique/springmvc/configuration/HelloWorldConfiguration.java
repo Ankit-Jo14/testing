@@ -24,7 +24,7 @@ public class HelloWorldConfiguration extends WebMvcConfigurerAdapter {
 	    public UrlBasedViewResolver getViewResovler() {
 		 UrlBasedViewResolver urlBasedViewResolver = new UrlBasedViewResolver();
 	        urlBasedViewResolver.setViewClass(JstlView.class);
-	        urlBasedViewResolver.setPrefix("/WEB-INF/pages/");
+	        urlBasedViewResolver.setPrefix("/");
 	        urlBasedViewResolver.setSuffix(".jsp");
 	        return urlBasedViewResolver;
 	    }

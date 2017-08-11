@@ -11,10 +11,10 @@ import com.websystique.springmvc.model.CultivarHome;
 
 @RestController
 public class HelloWorldRestController {
-	@RequestMapping("/")
-	public String welcome() {//Welcome page, non-rest
-		return "home.html";
-	}
+//	@RequestMapping("/")
+//	public String welcome() {//Welcome page, non-rest
+//		return "home";
+//	}
 
 	@RequestMapping("/hello/{player}")
 	public Message message(@PathVariable String player) {//REST Endpoint.
